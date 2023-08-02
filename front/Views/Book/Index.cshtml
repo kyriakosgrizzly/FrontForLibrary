@@ -1,0 +1,68 @@
+﻿@*
+*@
+@{
+}
+@model List<Book>
+<form asp-controller="Book" asp-action="Index" class="p-2 w-25">
+    <select class="form-control" name="FilterParam">
+        <option>No Filter</option>
+        <option>ByTitle</option>
+        <option>ByAuthorNameorLastName</option>
+    </select>
+    <p>
+        Title: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+
+    </p>
+</form>
+
+
+<h1>Books</h1>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th> Title </th>
+            <th> Description </th>
+            <th> Image </th>
+            <th> Authors </th>
+
+
+        </tr>
+
+    </thead>
+    <tbody>
+
+        @foreach (var obj in Model.OrderBy(x => x.Title))
+        {
+            <tr>
+                <th>
+                    @obj.Title
+                </th>
+                <th>
+                    @obj.Description
+                </th>
+                <th>
+                    <img src=@obj.Image width="100" height="100">
+                </th>
+                <th>
+                    @foreach (var element in obj.AuthorList)
+                    {
+                        <p>@Html.DisplayFor(m => element.FirstName)</p>
+                    }
+
+                </th>
+                <th>
+                    <a class="btn btn-primary" asp-controller="Book" asp-action="Details" asp-route-BookId=@obj.Id>
+                        <i class="bi bi-calendar-plus"></i> Open Book
+                    </a>
+                </th>
+            </tr>
+        }
+
+
+
+    </tbody>
+</table>
+
+
+

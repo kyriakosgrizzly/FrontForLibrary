@@ -1,0 +1,31 @@
+﻿@model Book
+
+<div>
+    @Model.Title
+</div>
+
+<img src=@Model.Image width="200" height="200" />
+<h5>Description : @Model.Description</h5>
+<h6>Rating: @Model.Rating</h6>
+<h6>Published: @Model.PublishmentDate</h6>
+<h6>Authors </h6>
+@foreach (var element in Model.AuthorList)
+{
+    <div class="d-flex">
+        <p display="inline">@Html.DisplayFor(m => element.FirstName)</p>
+        <p>@Html.DisplayFor(m => element.LastName)</p>
+    </div>
+}
+
+
+@if (Model.IsTaken)
+{
+    <h6>book is not available"</h6>
+}
+else
+{
+    <h6>book is available</h6>
+}
+<a class="btn btn-primary" asp-controller="Book" asp-action="Index" >
+    <i class="bi bi-calendar-plus"></i> Go back
+</a>
